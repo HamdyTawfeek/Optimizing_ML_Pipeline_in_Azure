@@ -48,6 +48,11 @@ def clean_data(data):
     return x_df, y_df
 
 
+x, y = clean_data(ds)
+# Split data into train and test sets.
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
+
+
 def main():
     # Add arguments to script
     parser = argparse.ArgumentParser()
@@ -59,10 +64,6 @@ def main():
 
     run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
-    
-    x, y = clean_data(ds)
-    # Split data into train and test sets.
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
 
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
